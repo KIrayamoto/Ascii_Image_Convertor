@@ -64,7 +64,12 @@ class Dlg2(QDialog, Ui_Dialog2):
                         img1[v][u] = leve
         im = Image.fromarray(img1)
         im.save("preview.jpg")
-        dlg.show_image.setPixmap(QPixmap("preview.jpg"))
+        jpg = QPixmap("preview.jpg")
+        scale = min(750 / W, 750 / H)  # 计算缩放比例，750x750是显示窗口大小
+        ww = int(W * min(1.0, scale))
+        hh = int(H * min(1.0, scale))
+        jpg = jpg.scaled(ww, hh)  # 缩放图片
+        dlg.show_image.setPixmap(jpg)
         remove("preview.jpg")
 
 
